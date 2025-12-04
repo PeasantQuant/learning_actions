@@ -50,6 +50,7 @@ jobs:
           python_ver: '3.10' 
           pyinstaller_ver: '==5.13.2'
           spec: 'main.py'
+          requirements: 'requirements.txt'
           upload_exe_with_name: 'My App - Linux'
           # Linux 默认是命令行应用，如果需要图形界面，可加上 --windowed
           options: --onefile, --name "MyApp-Linux"
@@ -70,9 +71,10 @@ jobs:
           python_ver: '3.10' 
           pyinstaller_ver: '==5.13.2'
           spec: 'main.py'
+          requirements: 'requirements.txt'
           upload_exe_with_name: 'My App - macOS'
           # macOS 打包时，通常需要 --windowed 才能生成用户友好的 .app 结构
-          options: --onefile, --windowed, --name "MyApp-macOS" 
+          options: --onefile, --name "MyApp-macOS" 
 
   # =======================================================
   # (可选) 第四步：打包 Windows 可执行文件 (保留原有的)
@@ -89,5 +91,6 @@ jobs:
           python_ver: '3.10' # 统一版本
           pyinstaller_ver: '==5.13.2'
           spec: 'main.py'
+          requirements: 'requirements.txt'
           upload_exe_with_name: 'My App - Windows'
           options: --onefile, --name "MyApp-Windows"
