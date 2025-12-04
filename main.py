@@ -3,5 +3,7 @@ print("how's your day?")
 
 
 if __name__ == "__main__":
-  main()
-  input("enter your problem")
+
+    main()
+    input("按回车键退出...")
+  
