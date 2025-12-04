@@ -1,0 +1,38 @@
+name: Create Release
+
+on: 
+  push:
+    tags:
+      - 'v*' # 修正：匹配所有以 'v' 开头的标签
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    # 建议使用变量引用，以便在其他 job 中复用
+    runs-on: windows-latest 
+    steps:
+      # 1. 签出代码 (必须，才能找到 main.py)
+      - uses: actions/checkout@v4 
+      
+      # 2. 创建可执行文件 (PyInstaller)
+      - name: Create Executable
+        id: create_executable
+        uses: sayyid5416/pyinstaller@v1
+        with:
+          python_ver: "3.12"
+          spec: "main.py"
+          # PyInstaller Action 会将文件放在 ./dist 目录下
+          upload_exe_with_name: "learn_release" # 文件名为 learn_release.exe
+          options: --onefile
+
+      # 3. 创建 GitHub Release 并上传文件
+      - name: Release Artifacts
+        uses: softprops/action-gh-release@v2
+        # if 条件已移除，因为只有标签推送才会触发
+        with:
+          # 确保上传 PyInstaller 生成的可执行文件
+          files: ./dist/learn_release.exe 
+          # 可选：如果您的文件名包含版本号，可以使用以下方式：
+          # files: ./dist/${{ steps.create_executable.outputs.exe_name }}
