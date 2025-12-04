@@ -30,9 +30,9 @@ jobs:
       # 3. 创建 GitHub Release 并上传文件
       - name: Release Artifacts
         uses: softprops/action-gh-release@v2
-        # if 条件已移除，因为只有标签推送才会触发
+        if: StartWith(github.ref, "refs/tags/")
         with:
           # 确保上传 PyInstaller 生成的可执行文件
-          files: ./dist/learn_release.exe 
+          files: ./dist/**
           # 可选：如果您的文件名包含版本号，可以使用以下方式：
           # files: ./dist/${{ steps.create_executable.outputs.exe_name }}
